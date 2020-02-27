@@ -8,7 +8,7 @@ const sportSchema = new Schema({
 
     image: {
         type: String,
-        default: "https://cdn.onlinewebfonts.com/svg/img_258083.png"
+        default: "https://www.acteursdusport.fr/mediatheque/5/8/4/000009485_600x400_c.png"
     }
 });
 

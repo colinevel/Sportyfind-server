@@ -4,8 +4,10 @@ const EventModel = require("../models/Event");
 
 
 router.get("/", (req, res, next) => {
-    res.status(200).json({ msg: "@todo" })
-});
+    eventModel
+    .find()
+    .then(dbRes => res.status(200).json({ events: dbRes }))
+    .catch(next);});
 
 
 

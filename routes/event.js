@@ -16,7 +16,7 @@ router.get("/:id", (req, res, next) => {
 
 router.post("/create", (req, res, next) => {
     const newEvent = {...req.body}
-    newEvent.creator = req.session.currentUser._id
+    // newEvent.creator = req.session.currentUser.id
 
     EventModel.create(newEvent)
     .then((results) => {

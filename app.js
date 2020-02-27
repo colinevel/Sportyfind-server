@@ -13,8 +13,9 @@ const cors = require("cors");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var eventsRouter = require('./routes/event')
-var authRouter = require('./routes/auth')
+var eventsRouter = require('./routes/event');
+var authRouter = require('./routes/auth');
+var sportsRouter = require('./routes/sport');
 
 // SERVER CONFIG
 // ------------------------------------------
@@ -76,11 +77,10 @@ app.use(passport.session());
 //   }
 
 
-
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
+app.use('/sports', sportsRouter);
 app.use('/', authRouter);
 
 module.exports = app;

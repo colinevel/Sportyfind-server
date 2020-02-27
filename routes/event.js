@@ -24,7 +24,6 @@ router.get("/:id", (req, res, next) => {
 router.post("/create", (req, res, next) => {
     const newEvent = {...req.body}
     // newEvent.creator = req.session.currentUser.id
-
     EventModel.create(newEvent)
     .then((results) => {
         res.status(200).json({ msg: "OK"})
@@ -36,7 +35,8 @@ router.post("/create", (req, res, next) => {
 
 
 router.patch("/edit/:id", (req, res, next) => {
-    const Eventvalues = {...req.body}
+    const Eventvalues = req.body;
+
 
     EventModel.findByIdAndUpdate(req.params.id, Eventvalues)
     .then((results) => {

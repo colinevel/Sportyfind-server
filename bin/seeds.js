@@ -44,6 +44,9 @@ async function seedIt() {
       name: "Football",
       image: ""
     };
+    
+
+    
 
     const sportSeed = await sportModel.create(sport);
 

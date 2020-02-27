@@ -10,8 +10,13 @@ router.get("/", (req, res, next) => {
 
 
 router.get("/:id", (req, res, next) => {
-    res.status(200).json({ msg: "@todo" })
-});
+    EventModel.findById(req.params.id)
+    .then(event => {
+    res.status(200).json(event)
+    }).catch(err => {
+    res.status(500).json(err)
+    })
+    });
 
 
 router.post("/create", (req, res, next) => {
@@ -28,7 +33,7 @@ router.post("/create", (req, res, next) => {
 });
 
 
-router.patch("/:id", (req, res, next) => {
+router.patch("/edit/:id", (req, res, next) => {
     const Eventvalues = {...req.body}
 
     EventModel.findByIdAndUpdate(req.params.id, Eventvalues)

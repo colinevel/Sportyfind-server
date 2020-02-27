@@ -1,10 +1,15 @@
 const express = require("express");
 const router = new express.Router();
+const eventModel = require("../models/Event");
+
 
 
 router.get("/", (req, res, next) => {
-    res.status(200).json({ msg: "@todo" })
-});
+    eventModel
+    .find()
+    .populate("user")
+    .then(dbRes => res.status(200).json({ events: dbRes }))
+    .catch(next);});
 
 
 

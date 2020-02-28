@@ -6,6 +6,7 @@ const EventModel = require("../models/Event");
 router.get("/", (req, res, next) => {
     eventModel
     .find()
+    .populate("user")
     .then(dbRes => res.status(200).json({ events: dbRes }))
     .catch(next);});
 

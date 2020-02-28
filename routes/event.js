@@ -4,7 +4,7 @@ const EventModel = require("../models/Event");
 
 
 router.get("/", (req, res, next) => {
-    eventModel
+    EventModel
     .find()
     .populate("user")
     .then(dbRes => res.status(200).json({ events: dbRes }))
@@ -14,6 +14,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
     EventModel.findById(req.params.id)
+    .populate("sport")
     .then(event => {
     res.status(200).json(event)
     }).catch(err => {
@@ -25,6 +26,7 @@ router.get("/:id", (req, res, next) => {
 router.post("/create", (req, res, next) => {
     const newEvent = {...req.body}
     // newEvent.creator = req.session.currentUser.id
+    // newEvent.participants.push(req.session.currentUser.id)
     EventModel.create(newEvent)
     .then((results) => {
         res.status(200).json({ msg: "OK"})
@@ -50,7 +52,10 @@ router.patch("/edit/:id", (req, res, next) => {
 
 
 router.delete("/:id", (req, res, next) => {
-    res.status(200).json({ msg: "@todo" })
+    EventModel
+    .findByIdAndDelete(req.params.id)
+    .then(dbRes => res.json(dbRes))
+    .catch(next);
 });
 
 

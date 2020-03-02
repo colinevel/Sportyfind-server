@@ -46,7 +46,6 @@ router.post("/signup", uploader.single("avatar"), (req, res, next) => {
 });
 
 
-
 router.post("/signin", (req, res, next) => {
     passport.authenticate("local", (err, user, failureDetails) => {
         if (err || !user) return res.status(403).json("invalid user infos"); // 403 : Forbidden
@@ -85,12 +84,10 @@ router.post("/signin", (req, res, next) => {
 });
 
 
-
 router.post("/signout", (req, res, next) => {
     req.logout(); // utility function provided by passport
   res.json({ message: "Success" });
 });
-
 
 
 router.use("/is-loggedin", (req, res, next) => {

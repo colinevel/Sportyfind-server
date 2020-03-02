@@ -9,9 +9,19 @@ const eventSchema = new Schema({
 
     date: String,
 
+    time: String,
+
     localisation: {
         type: String,
         required: true
+    },
+
+    lat: {
+        type: String
+    },
+
+    lng: {
+        type: String
     },
 
     creator: {

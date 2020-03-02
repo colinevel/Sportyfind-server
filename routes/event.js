@@ -3,19 +3,20 @@ const router = new express.Router();
 const EventModel = require("../models/Event");
 
 
-router.get("/", (req, res, next) => {
+router.get("/events", (req, res, next) => {
+    console.log(req.query);
+    
     EventModel
     .find()
     .populate("sport")
     .populate("user")
     .then(dbRes => {
-        console.log(dbRes);
         res.status(200).json({ events: dbRes })})
     .catch(next);});
 
 
 
-router.get("/:id", (req, res, next) => {
+router.get("/events/:id", (req, res, next) => {
     EventModel.findById(req.params.id)
     .populate("sport")
     .then(event => {
@@ -26,7 +27,7 @@ router.get("/:id", (req, res, next) => {
     });
 
 
-router.post("/create", (req, res, next) => {
+router.post("/events/create", (req, res, next) => {
     const newEvent = {...req.body}
     // newEvent.creator = req.session.currentUser.id
     // newEvent.participants.push(req.session.currentUser.id)
@@ -40,7 +41,7 @@ router.post("/create", (req, res, next) => {
 });
 
 
-router.patch("/edit/:id", (req, res, next) => {
+router.patch("/events/edit/:id", (req, res, next) => {
     const Eventvalues = req.body;
 
 
@@ -54,7 +55,7 @@ router.patch("/edit/:id", (req, res, next) => {
 });
 
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/events/:id", (req, res, next) => {
     EventModel
     .findByIdAndDelete(req.params.id)
     .then(dbRes => res.json(dbRes))

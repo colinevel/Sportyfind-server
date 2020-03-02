@@ -32,7 +32,6 @@ router.patch("/:id",uploader.single("avatar"), (req, res, next) => {
     const { email, firstName, lastName, city, 
         // password,
         username,userId } = req.body;
-        console.log(req.body)
   const updateUser = {
     email, 
     firstName,

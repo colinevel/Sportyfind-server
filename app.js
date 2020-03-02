@@ -79,7 +79,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/events', eventsRouter);
+app.use('/', eventsRouter);
 app.use('/sports', sportsRouter);
 app.use('/', authRouter);
 

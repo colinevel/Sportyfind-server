@@ -19,6 +19,8 @@ router.get("/events", (req, res, next) => {
 router.get("/events/:id", (req, res, next) => {
     EventModel.findById(req.params.id)
     .populate("sport")
+    .populate("creator")
+    .populate("participants")
     .then(event => {
     res.status(200).json(event)
     }).catch(err => {

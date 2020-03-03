@@ -17,6 +17,29 @@ router.get("/events", (req, res, next) => {
     .catch(next);});
 
 
+router.patch("/events/join/:id", (req,res,next) => {
+    EventModel
+    .findByIdAndUpdate(req.params.id,{ $push: { participants: req.user._id }},{new:true})
+    .populate("participants")
+    .then((event) => {
+        res.status(200).json(event)
+    }).catch(err => {
+        res.status(500).json(err)
+    })
+
+})
+
+router.patch("/events/leave/:id", (req,res,next) => {
+    EventModel
+    .findByIdAndUpdate(req.params.id,{ $pull: { participants: req.user._id }},{new:true})
+    .populate("participants")
+    .then((event) => {
+        res.status(200).json(event)
+    }).catch(err => {
+        res.status(500).json(err)
+    })
+
+})
 router.get("/dashboard", (req, res, next) => {
 // var idUsers = mongoose.Types.ObjectId(users);
     EventModel

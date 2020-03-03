@@ -23,6 +23,8 @@ router.get("/dashboard", (req, res, next) => {
     .find({participants:{ $in: [req.user._id] }})
     .populate("sport")
     .populate("user")
+    .populate("creator")
+    .populate("participants")
     .then(dbRes => {
     console.log("this is my dbres", dbRes);
     res.status(200).json({ events: dbRes })})

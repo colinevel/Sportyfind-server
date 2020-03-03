@@ -30,9 +30,12 @@ router.get("/events/:id", (req, res, next) => {
 
 
 router.post("/events/create", (req, res, next) => {
+
     const newEvent = {...req.body}
-    // newEvent.creator = req.session.currentUser.id
-    // newEvent.participants.push(req.session.currentUser.id)
+    newEvent.creator = req.user._id
+    newEvent.participants = []
+    newEvent.participants.push(req.user._id)
+
     EventModel.create(newEvent)
     .then((results) => {
         res.status(200).json({ msg: "OK"})

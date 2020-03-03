@@ -15,6 +15,18 @@ router.get("/events", (req, res, next) => {
     .catch(next);});
 
 
+router.get("/dashboard", (req, res, next) => {
+// var idUsers = mongoose.Types.ObjectId(users);
+    EventModel
+    .find({participants:{ $in: [req.user._id] }})
+    .populate("sport")
+    .populate("user")
+    .then(dbRes => {
+    console.log("this is my dbres", dbRes);
+    res.status(200).json({ events: dbRes })})
+    .catch(next);
+});
+
 
 router.get("/events/:id", (req, res, next) => {
     EventModel.findById(req.params.id)

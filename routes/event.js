@@ -10,6 +10,8 @@ router.get("/events", (req, res, next) => {
     .find()
     .populate("sport")
     .populate("user")
+    .populate("creator")
+    .populate("participants")
     .then(dbRes => {
         res.status(200).json({ events: dbRes })})
     .catch(next);});

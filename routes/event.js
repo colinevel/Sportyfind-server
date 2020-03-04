@@ -44,7 +44,7 @@ router.patch("/events/leave/:id", (req,res,next) => {
 router.get("/dashboard", (req, res, next) => {
 // var idUsers = mongoose.Types.ObjectId(users);
     EventModel
-    .find({participants:{ $in: [req.user._id] }})
+    .find({participants:{ $in: [req.user._id] },date : {$gte:new Date()} })
     .populate("sport")
     .populate("user")
     .populate("creator")

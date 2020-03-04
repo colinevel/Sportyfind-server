@@ -1,13 +1,14 @@
 const express = require("express");
 const router = new express.Router();
 const EventModel = require("../models/Event");
+var moment = require('moment');
 
 
 router.get("/events", (req, res, next) => {
-    console.log(req.query);
     
     EventModel
-    .find()
+    .find({date : {$gte:new Date()}})
+    .sort({ date : 1 })
     .populate("sport")
     .populate("user")
     .populate("creator")

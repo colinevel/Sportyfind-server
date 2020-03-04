@@ -50,7 +50,6 @@ router.get("/dashboard", (req, res, next) => {
     .populate("creator")
     .populate("participants")
     .then(dbRes => {
-    console.log("this is my dbres", dbRes);
     res.status(200).json({ events: dbRes })})
     .catch(next);
 });

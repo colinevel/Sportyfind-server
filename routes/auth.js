@@ -11,7 +11,9 @@ router.post("/signup", uploader.single("avatar"), (req, res, next) => {
     var errorMsg = "";
     const { username, password, email, firstName, lastName, city } = req.body;
     // @todo : best if email validation here or check with a regex in the User model
-    if (!password || !email) errorMsg += "Provide email and password.\n";
+    if (!password || !email) {
+        errorMsg += "Provide email and password. ";
+    }
 
     if (password.length < minPasswordLength)
         errorMsg += `Please make your password at least ${minPasswordLength} characters.`;

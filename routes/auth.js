@@ -42,16 +42,21 @@ router.post("/signup", uploader.single("avatar"), (req, res, next) => {
             res.status(200).json({ msg: "signup ok" });
         })
         .catch(err => {
-            console.log("signup error", err);
-            next(err);
+            errorMsg = "username or mail allready exist"
+            res.status(403).json(errorMsg);
         });
 });
 
 
 router.post("/signin", (req, res, next) => {
+    var errorMsg = "";
     passport.authenticate("local", (err, user, failureDetails) => {
-        if (err || !user) return res.status(403).json("invalid user infos"); // 403 : Forbidden
 
+
+        if (err || !user) {
+            errorMsg= "invalid user infos";
+            return res.status(403).json(errorMsg) // 403 : Forbidden
+        }
         /**
          * req.Login is a passport method
          * check the doc here : http://www.passportjs.org/docs/login/
@@ -59,8 +64,9 @@ router.post("/signin", (req, res, next) => {
         req.logIn(user, function (err) {
             /* doc says: When the login operation completes, user will be assigned to req.user. */
             if (err) {
-                return res.json({ message: "Something went wrong logging in" });
-            }
+            errorMsg= "Something went wrong logging in";
+            return res.status(403).json(errorMsg) // 403 : Forbidden
+        }
 
             // We are now logged in
             // You may find usefull to send some other infos

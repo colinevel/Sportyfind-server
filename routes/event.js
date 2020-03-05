@@ -7,7 +7,7 @@ var moment = require('moment');
 router.get("/events", (req, res, next) => {
     
     EventModel
-    .find({date : {$gte:new Date()}})
+    .find({date : {$gte:new Date(new Date().setDate(new Date().getDate()-1))}})
     .sort({ date : 1 })
     .populate("sport")
     .populate("user")
@@ -43,17 +43,39 @@ router.patch("/events/leave/:id", (req,res,next) => {
 })
 router.get("/dashboard", (req, res, next) => {
 // var idUsers = mongoose.Types.ObjectId(users);
+Promise.all([
     EventModel
-    .find({participants:{ $in: [req.user._id] }})
+    .find({participants:{ $in: [req.user._id] },date : {$gte:new Date(new Date().setDate(new Date().getDate()-1))}})
     .sort({ date : 1 })
     .populate("sport")
     .populate("user")
     .populate("creator")
-    .populate("participants")
+    .populate("participants"),
+    EventModel
+        .find({participants:{ $in: [req.user._id] },date : {$lt:new Date(new Date().setDate(new Date().getDate()-1))}})
+        .sort({ date : -1 })
+        .populate("sport")
+        .populate("user")
+        .populate("creator")
+        .populate("participants")])
     .then(dbRes => {
-    res.status(200).json({ events: dbRes })})
+    res.status(200).json({ events: dbRes[0], pastEvents: dbRes[1]})})
     .catch(next);
 });
+
+// router.get("/pastevents", (req, res, next) => {
+//     // var idUsers = mongoose.Types.ObjectId(users);
+//         EventModel
+//         .find({participants:{ $in: [req.user._id] },date : {$lt:new Date()}})
+//         .sort({ date : 1 })
+//         .populate("sport")
+//         .populate("user")
+//         .populate("creator")
+//         .populate("participants")
+//         .then(dbRes => {
+//         res.status(200).json({ events: dbRes })})
+//         .catch(next);
+//     });
 
 
 router.get("/events/:id", (req, res, next) => {

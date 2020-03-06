@@ -49,8 +49,6 @@ async function seedIt() {
     const sportSeed = await sportModel.create(sport);
 
 
-    console.log("All good");
-    console.log(eventSeed, userSeed, sportSeed);
 
   }
   catch (err) {

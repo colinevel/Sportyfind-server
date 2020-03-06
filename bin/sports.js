@@ -81,5 +81,5 @@ const sportdata = [
 const seeds = sportdata;
 
 sportModel.insertMany(seeds)
-.then(dbRes => console.log(dbRes))
-.catch(dbErr => console.log(dbErr))
+.then(dbRes)
+.catch(dbErr)
